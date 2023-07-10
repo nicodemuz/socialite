@@ -47,8 +47,15 @@ class GoogleProvider extends AbstractProvider
      */
     protected function getTokenFields(string $code)
     {
+        $array = A::add(
+            parent::getTokenFields($code),
+            'grant_type',
+            'authorization_code'
+        );
         return A::add(
-            parent::getTokenFields($code), 'grant_type', 'authorization_code'
+            $array,
+            'access_type',
+            'offline'
         );
     }
 
