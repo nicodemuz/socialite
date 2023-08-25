@@ -2,6 +2,7 @@
 namespace Socialite;
 
 use Socialite\One\TwitterProvider;
+use Socialite\Two\AppleProvider;
 use Socialite\Two\BitbucketProvider;
 use Socialite\Two\FacebookProvider;
 use Socialite\Two\GithubProvider;
@@ -46,6 +47,7 @@ class SocialiteManager
         'facebook' => FacebookProvider::class,
         'bitbucket' => BitbucketProvider::class,
         'linkedin' => LinkedInProvider::class,
+        'apple' => AppleProvider::class,
     ];
 
     /**

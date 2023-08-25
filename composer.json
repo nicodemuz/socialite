@@ -8,10 +8,14 @@
     "license": "MIT",
     "require": {
         "php": ">=8.1.0",
+        "firebase/php-jwt": "^6.8",
         "guzzlehttp/guzzle": "^7.0",
         "laminas/laminas-diactoros": "^2.13",
+        "lcobucci/clock": "^3.0",
+        "lcobucci/jwt": "^5.0",
         "league/oauth1-client": "^1.0",
-        "symfony/http-foundation": "^3.0"
+        "symfony/http-foundation": "^3.0",
+        "ext-openssl": "*"
     },
     "require-dev": {
         "phpstan/phpstan": "^1.10",
