@@ -129,14 +129,12 @@ class AppleProvider extends AbstractProvider
 
     protected function hasInvalidState()
     {
-        $invalidState = parent::hasInvalidState();
-        if ($invalidState) {
-            $state = $this->getSessionData('Socialite.state');
-            parse_str($this->request->getBody(), $body);
-            $invalidState = !(strlen($state) > 0 && A::get($body, 'state') === $state);
+        if ($this->isStateless()) {
+            return false;
         }
-
-        return $invalidState;
+        $state = $this->getSessionData('Socialite.state');
+        parse_str($this->request->getBody(), $body);
+        return !(strlen($state) > 0 && A::get($body, 'state') === $state);
     }
 
 
@@ -241,11 +239,6 @@ class AppleProvider extends AbstractProvider
 
     protected function getCode()
     {
-        $queryCode = A::get($this->request->getQueryParams(), 'code');
-        if ($queryCode !== null) {
-            return $queryCode;
-        }
-
         parse_str($this->request->getBody(), $body);
         return A::get($body, 'code');
     }
