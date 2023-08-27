@@ -12,6 +12,7 @@ use Lcobucci\JWT\Validation\Constraint\LooseValidAt;
 use Lcobucci\JWT\Validation\Constraint\SignedWith;
 use Lcobucci\JWT\Validation\RequiredConstraintsViolated;
 use Psr\Http\Message\ResponseInterface;
+use Ramsey\Uuid\Uuid;
 use Socialite\Util\A;
 use Socialite\Util\Apple\AppleSignerInMemory;
 use Socialite\Util\Apple\AppleSignerNone;
@@ -34,6 +35,8 @@ class AppleProvider extends AbstractProvider
         'name',
         'email',
     ];
+
+    protected $encodingType = PHP_QUERY_RFC3986;
 
     /**
      * {@inheritdoc}
@@ -91,9 +94,6 @@ class AppleProvider extends AbstractProvider
         return json_decode(base64_decode($claims), true);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function verify($jwt): bool
     {
         $jwtContainer = Configuration::forSymmetricSigner(
@@ -212,5 +212,16 @@ class AppleProvider extends AbstractProvider
                 'refresh_token' => $refreshToken,
             ],
         ]);
+    }
+
+    protected function getCodeFields($state = null): array
+    {
+        $fields = parent::getCodeFields($state);
+        $fields['response_mode'] = 'form_post';
+
+        if ($this->usesState()) {
+            $fields['nonce'] = Uuid::uuid4().'.'.$state;
+        }
+        return $fields;
     }
 }
