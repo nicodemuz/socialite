@@ -132,8 +132,8 @@ class AppleProvider extends AbstractProvider
         $invalidState = parent::hasInvalidState();
         if ($invalidState) {
             $state = $this->getSessionData('Socialite.state');
-            parse_str($this->request->getBody()->__toString(), $body);
-            return !(strlen($state) > 0 && A::get($body, 'state') === $state);
+            parse_str($this->request->getBody(), $body);
+            $invalidState = !(strlen($state) > 0 && A::get($body, 'state') === $state);
         }
 
         return $invalidState;
@@ -144,7 +144,7 @@ class AppleProvider extends AbstractProvider
     public function user()
     {
         if ($this->hasInvalidState()) {
-            throw new InvalidStateException;
+            throw new InvalidStateException();
         }
         $response = $this->getAccessTokenResponse($this->getCode());
         $appleUserToken = $this->getUserByToken(
@@ -246,7 +246,7 @@ class AppleProvider extends AbstractProvider
             return $queryCode;
         }
 
-        parse_str($this->request->getBody()->__toString(), $body);
+        parse_str($this->request->getBody(), $body);
         return A::get($body, 'code');
     }
 }
