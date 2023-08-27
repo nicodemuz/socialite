@@ -127,6 +127,20 @@ class AppleProvider extends AbstractProvider
         throw new InvalidStateException('Invalid JWT Signature');
     }
 
+    protected function hasInvalidState()
+    {
+        $invalidState = parent::hasInvalidState();
+        if ($invalidState) {
+            $state = $this->getSessionData('Socialite.state');
+            parse_str($this->request->getBody()->__toString(), $body);
+            return !(strlen($state) > 0 && A::get($body, 'state') === $state);
+        }
+
+        return $invalidState;
+    }
+
+
+
     public function user()
     {
         if ($this->hasInvalidState()) {
@@ -223,5 +237,16 @@ class AppleProvider extends AbstractProvider
             $fields['nonce'] = Uuid::uuid4().'.'.$state;
         }
         return $fields;
+    }
+
+    protected function getCode()
+    {
+        $queryCode = A::get($this->request->getQueryParams(), 'code');
+        if ($queryCode !== null) {
+            return $queryCode;
+        }
+
+        parse_str($this->request->getBody()->__toString(), $body);
+        return A::get($body, 'code');
     }
 }
