@@ -22,7 +22,7 @@ class BitbucketProvider extends AbstractProvider
     /**
      * {@inheritdoc}
      */
-    protected function getAuthUrl(string $state)
+    protected function getAuthUrl(?string $state)
     {
         return $this->buildAuthUrlFromBase('https://bitbucket.org/site/oauth2/authorize', $state);
     }

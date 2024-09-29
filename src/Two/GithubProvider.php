@@ -15,7 +15,7 @@ class GithubProvider extends AbstractProvider
     /**
      * {@inheritdoc}
      */
-    protected function getAuthUrl(string $state)
+    protected function getAuthUrl(?string $state)
     {
         return $this->buildAuthUrlFromBase('https://github.com/login/oauth/authorize', $state);
     }

@@ -41,7 +41,7 @@ class AppleProvider extends AbstractProvider
     /**
      * {@inheritdoc}
      */
-    protected function getAuthUrl(string $state)
+    protected function getAuthUrl(?string $state)
     {
         return $this->buildAuthUrlFromBase('https://appleid.apple.com/auth/authorize', $state);
     }

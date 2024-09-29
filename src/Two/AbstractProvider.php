@@ -114,7 +114,7 @@ abstract class AbstractProvider implements ProviderInterface
      * @param string $state
      * @return string
      */
-    abstract protected function getAuthUrl(string $state);
+    abstract protected function getAuthUrl(?string $state);
 
     /**
      * Get the token URL for the provider.
@@ -173,7 +173,7 @@ abstract class AbstractProvider implements ProviderInterface
      * @param string $state
      * @return string
      */
-    protected function buildAuthUrlFromBase(string $url, string $state)
+    protected function buildAuthUrlFromBase(string $url, ?string $state)
     {
         return $url . '?' . http_build_query($this->getCodeFields($state), '', '&', $this->encodingType);
     }

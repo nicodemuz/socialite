@@ -26,7 +26,7 @@ class GoogleProvider extends AbstractProvider
     /**
      * {@inheritdoc}
      */
-    protected function getAuthUrl(string $state)
+    protected function getAuthUrl(?string $state)
     {
         return $this->buildAuthUrlFromBase('https://accounts.google.com/o/oauth2/auth', $state);
     }
