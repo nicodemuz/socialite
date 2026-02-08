@@ -134,7 +134,7 @@ class AppleProvider extends AbstractProvider
         }
         $state = $this->getSessionData('Socialite.state');
         parse_str($this->request->getBody(), $body);
-        return !(strlen($state) > 0 && A::get($body, 'state') === $state);
+        return !($state !== null && strlen($state) > 0 && A::get($body, 'state') === $state);
     }
 
 
