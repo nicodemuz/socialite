@@ -249,7 +249,7 @@ abstract class AbstractProvider implements ProviderInterface
             return false;
         }
         $state = $this->getSessionData('Socialite.state');
-        return !(strlen($state) > 0 && A::get($this->request->getQueryParams(), 'state') === $state);
+        return !($state !== null && strlen($state) > 0 && A::get($this->request->getQueryParams(), 'state') === $state);
     }
 
     /**
