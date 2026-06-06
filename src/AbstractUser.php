@@ -135,45 +135,32 @@ abstract class AbstractUser implements ArrayAccess, UserInterface
 
     /**
      * Determine if the given raw user attribute exists.
-     *
-     * @param string $offset
-     * @return bool
      */
-    public function offsetExists($offset)
+    public function offsetExists(mixed $offset): bool
     {
         return array_key_exists($offset, $this->user);
     }
 
     /**
      * Get the given key from the raw user.
-     *
-     * @param string $offset
-     * @return mixed
      */
-    public function offsetGet($offset)
+    public function offsetGet(mixed $offset): mixed
     {
         return $this->user[$offset];
     }
 
     /**
      * Set the given attribute on the raw user array.
-     *
-     * @param string $offset
-     * @param mixed $value
-     * @return void
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet(mixed $offset, mixed $value): void
     {
         $this->user[$offset] = $value;
     }
 
     /**
      * Unset the given value from the raw user array.
-     *
-     * @param string $offset
-     * @return void
      */
-    public function offsetUnset($offset)
+    public function offsetUnset(mixed $offset): void
     {
         unset($this->user[$offset]);
     }
